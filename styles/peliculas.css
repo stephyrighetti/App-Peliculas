@@ -101,7 +101,9 @@ a {
     margin-bottom: 75px;
 }
 
-
+.movie {
+    justify-content: center;
+}
 
 .movie .description {
     display: flex;
@@ -117,18 +119,33 @@ a {
 }
 
 
-.movie .not-watched {
+.movie .not-watched, .movie .delete {
     height: 22px;
     width: 22px;
     border-radius: 50%;
-    background-color: #FFBF00;
     cursor: pointer;
     margin-right: 15px;
     box-shadow: 2px 2px 5px lightgrey;
     
 }
 
+.movie .not-watched {
+    background-color: #FFBF00;
+    margin-left: auto;
+}
+
+.movie .delete {
+    background-color: orangered;
+}
+
 .movie .not-watched p {
+    color: black;
+    text-align: center;
+    margin-top: 1px;
+}
+
+
+.movie .delete p {
     color: black;
     text-align: center;
     margin-top: 1px;
