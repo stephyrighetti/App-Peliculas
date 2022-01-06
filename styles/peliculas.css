@@ -7,6 +7,8 @@ body {
     position: relative;
 }
 
+/*Header properties*/
+
 header {
     display: flex;
     justify-content: space-between;
@@ -47,6 +49,8 @@ a {
     opacity: .4;
     margin-left: .7em;
 }
+
+/*New movie properties*/
 
 .new-movie {
     position: relative;
@@ -92,6 +96,9 @@ a {
     color: beige;
 }
 
+
+/*List of pending movies*/
+
 .pending-movies {
     display: flex;
     flex-direction: column;
@@ -126,7 +133,6 @@ a {
     cursor: pointer;
     margin-right: 15px;
     box-shadow: 2px 2px 5px lightgrey;
-    
 }
 
 .movie .not-watched {
@@ -138,24 +144,17 @@ a {
     background-color: orangered;
 }
 
-.movie .not-watched p {
-    color: black;
-    text-align: center;
-    margin-top: 1px;
-}
-
-
-.movie .delete p {
+.movie .not-watched p, .movie .delete p {
     color: black;
     text-align: center;
     margin-top: 1px;
 }
 
 .movie .name {
-
     color: #808080;
+}
 
-    }
+/*List of watched movies*/
 
 .title-watched {
     position: relative;
@@ -166,5 +165,4 @@ a {
     color: #808080;
     font-size: 18px;
     margin-left: 80px;
-
 }
