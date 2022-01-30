@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/movies'
+const API_URL = 'http://localhost:3000/api/movies'
 
 
 window.addEventListener('load', function() {
@@ -11,7 +11,6 @@ window.addEventListener('load', function() {
 
         const nuevaPeli = {
             name: inputPelicula.value,
-            watched: false
         }
         agregarPelicula(API_URL, nuevaPeli)
         // document.querySelector('.button').reset();
@@ -66,6 +65,33 @@ function obtenerListadoPeliculas (url) {
 }
 
 
+// DELETE: eliminar peliculas
+
+function eliminarPelicula() {
+    const botonEliminar = document.querySelectorAll('.borro')
+
+
+    botonEliminar.forEach( boton => {
+        boton.addEventListener('click', function (event) {
+            const id = event.target.closest('li').getAttribute('data-id')
+            const url = `${API_URL}/${id}`
+
+            const config = {
+                method: 'DELETE',
+            }
+            
+            fetch(url, config)
+            .then(respuesta => respuesta.json())
+            .then(data => {
+                console.log(data);
+                obtenerListadoPeliculas(`${API_URL}`);
+            })
+
+        })
+    })
+
+}
+
 // Renderizado de películas pendientes
 
 function renderizarPelis(lista) {
@@ -76,31 +102,28 @@ const nodoPeliculasVistas = document.querySelector('.watched');
 nodoPeliculasPendientes.innerHTML= "";
 nodoPeliculasVistas.innerHTML= "";
 
-const peliculasPendientes = lista.filter(pelicula => pelicula.watched);
-const peliculasVistas = lista.filter(pelicula => !pelicula.watched);
-
 lista.forEach(pelicula => {
-    if (pelicula.watched === false) {
-        peliculasVistas.innerHTML += `<li class="movie">
+    if (pelicula.watched) {
+        nodoPeliculasVistas.innerHTML += `<li class="movie" data-id="${pelicula.id}">
         <div class="description">
         <div class="name">${pelicula.name}</div>
         <div>
-        <button><i id="${pelicula.id}" class="fas fa-undo-alt change"></id></button>
-        <button><i id="${pelicula.id}" class="far fa-trash-alt"></id></button>
+        <button><i class="fas fa-undo-alt change"></i></button>
+        <button><i class="far fa-trash-alt"></i></button>
         </div>
         </div> 
         </li>`
     } else {
-        peliculasPendientes.innerHTML += `<li class= "movie">
+        nodoPeliculasPendientes.innerHTML += `<li class= "movie" data-id="${pelicula.id}">
         <div class= "description">
-        <div class= "name">"${pelicula.name}"</div>
+        <div class= "name">${pelicula.name}</div>
         <div class="not-watched"><p>✓</p></div>
-        <div class="delete"><p>✗</p></div>
+        <div class="delete"><p class='borro'>✗</p></div>
         </div>
         </li>`
     }
 });
-
+eliminarPelicula();
 
 }
  
