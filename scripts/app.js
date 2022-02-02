@@ -29,6 +29,7 @@ const botonBorrar = document.querySelector('.delete');
 const inputPelicula = document.querySelector('#nuebo');
 const botonVista = document.querySelectorAll('.vista')
 
+
 // POST: crear película pendiente 
 function agregarPelicula (url, payload) {
     const config = {
@@ -105,7 +106,7 @@ function eliminarPelicula() {
 
 function peliculaVista () {
     const botonVista = document.querySelectorAll('.not-watched')
-    console.log(botonVista);
+   // console.log(botonVista);
 
 
     botonVista.forEach (boton => {
@@ -147,6 +148,75 @@ function peliculaVista () {
    
 }
 
+// Modificar pelicula de vista a pendiente. Despues buscar forma de armar la misma funcion que la anterior asi no repito el mismo codigo
+
+function vistaAPendiente(){
+    const botonPendiente = document.querySelectorAll('.undo')
+    
+    botonPendiente.forEach(boton => {
+        boton.addEventListener('click', function (event) {
+            const id = event.target.closest('ul').getAttribute('data-id')
+
+            const url = `${API_URL}/${id}`
+
+            const rewatchPeli = {
+                vista: false
+            }
+
+
+            const config = {
+                method: 'PUT',
+                headers:  {
+                        'Content-type': 'application/json'
+                    },
+
+                body: JSON.stringify(rewatchPeli)
+            }
+
+            fetch (url, config)
+            .then(respuesta => respuesta.json())
+            .then(text => {
+                console.log(text);
+                obtenerListadoPeliculas(`${API_URL}`);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+
+
+
+        })
+    })
+}
+
+
+//Eliminar forever
+function eliminarForever () {
+    const botonEliminar = document.querySelectorAll('.trash')
+
+
+    botonEliminar.forEach( boton => {
+        boton.addEventListener('click', function (event) {
+            const id = event.target.closest('ul').getAttribute('data-id')
+            const url = `${API_URL}/${id}`
+
+            const config = {
+                method: 'DELETE',
+            }
+            
+            fetch(url, config)
+            .then(respuesta => respuesta.json())
+            .then(data => {
+                console.log(data);
+                obtenerListadoPeliculas(`${API_URL}`);
+            })
+
+        })
+    })
+}
+
+
 // Renderizado de películas pendientes y vistas
 
 function renderizarPelis(lista) {
@@ -163,8 +233,8 @@ lista.forEach(pelicula => {
         <div class="description">
         <div class="name">${pelicula.name}</div>
         <div>
-        <button><i class="fas fa-undo-alt change"></i></button>
-        <button><i class="far fa-trash-alt"></i></button>
+        <button class="undo"><i class="fas fa-undo-alt change"></i></button>
+        <button class= "trash"><i class="far fa-trash-alt"></i></button>
         </div>
         </div> 
         </ul>`
@@ -180,6 +250,7 @@ lista.forEach(pelicula => {
 });
 eliminarPelicula();
 peliculaVista();
+vistaAPendiente();
+eliminarForever();
 
 }
- 

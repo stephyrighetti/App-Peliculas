@@ -166,3 +166,23 @@ a {
     font-size: 18px;
     margin-left: 80px;
 }
+
+.watched .description {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 600px;
+    margin-left: 50px;
+    background-color: white;
+    box-shadow: 2px 2px 5px lightgrey;
+    padding: 15px 15px;
+}
+
+.watched .name {
+    color:  #808080;
+}
+
+.undo, .trash {
+    color: #808080;
+    
+}
