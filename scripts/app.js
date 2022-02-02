@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/movies'
+const API_URL = 'http://localhost:3000/api/movies'
 
 
 window.addEventListener('load', function() {
@@ -111,8 +111,6 @@ function peliculaVista () {
     botonVista.forEach (boton => {
         boton.addEventListener('click', function (event) {
             const id = event.target.closest('li').getAttribute('data-id')
-            const name = event.target.closest('.nombre').textContent
-            console.log(name);
 
             // const name = document.querySelector('.nombre')
             // console.log(name.textContent);
@@ -120,8 +118,7 @@ function peliculaVista () {
             const url = `${API_URL}/${id}`
 
             const nuevaPeli = {
-                name: name,
-                watched: true
+                vista: true
             }
             
             const config = {
@@ -134,8 +131,8 @@ function peliculaVista () {
             }
 
             fetch (url, config)
-            //.then(respuesta => respuesta.json())
-            .then(respuesta => respuesta.text())
+            .then(respuesta => respuesta.json())
+            // .then(respuesta => respuesta.text())
             .then(text => {
                 console.log(text);
                 obtenerListadoPeliculas(`${API_URL}`);
