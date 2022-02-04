@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/movies'
+const API_URL = 'http://localhost:5000/api/movies'
 
 
 window.addEventListener('load', function() {
@@ -56,16 +56,17 @@ function agregarPelicula (url, payload) {
     }
 
     fetch(url, config)
-    .then(respuesta => respuesta.json())
+    .then(respuesta => respuesta.text())
     .then (data => {
         console.log(data);
-        agregarPeliSola(data);
+        obtenerListadoPeliculas(`${API_URL}`);
         
     })
     .catch(error => {
         console.log(error);
-    })
-}
+    }) //Me gustaría mostrar este error no en la consola pero en el front, pero no con una "alerta"
+    //sino en rojo en alguna parte de la pantalla.
+} 
 
 // GET: traer películas 
 function obtenerListadoPeliculas (url) {
@@ -124,7 +125,7 @@ function registrarListenerVistaPendiente (boton, tag, visibilidad) {
             const url = `${API_URL}/${id}`
 
             const rewatchPeli = {
-                vista: visibilidad
+                watched: visibilidad
             }
 
 
@@ -172,7 +173,7 @@ function renderizarPelis(lista) {
             <div>
             <button class="undo"><i class="fas fa-undo-alt change"></i></button>
             <button class= "trash"><i class="far fa-trash-alt"></i></button>
-            <div></div>
+            <div>${formatDate(pelicula.createdAt)}</div>
             </div>
             </div> 
             </ul>`
@@ -194,7 +195,12 @@ function renderizarPelis(lista) {
 
 }
 
+// Fecha 
 
+function formatDate(dateStr) {
+    const d = new Date(dateStr)
+    return d.toLocaleDateString()
+}
 
 
 
