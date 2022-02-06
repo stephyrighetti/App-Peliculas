@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/movies'
+const API_URL = 'http://localhost:3000/api/movies'
 
 
 window.addEventListener('load', function() {
@@ -173,7 +173,7 @@ function renderizarPelis(lista) {
             <div>
             <button class="undo"><i class="fas fa-undo-alt change"></i></button>
             <button class= "trash"><i class="far fa-trash-alt"></i></button>
-            <div>${formatDate(pelicula.createdAt)}</div>
+            <div>${formatDate(pelicula.updatedAt)}</div>
             </div>
             </div> 
             </ul>`
