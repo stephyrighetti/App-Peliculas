@@ -156,8 +156,10 @@ a {
 
 /*List of watched movies*/
 
+
 .title-watched {
-    position: relative;
+    /* display: flex;
+    position: relative; */
     text-align: center;
     box-shadow: 2px 2px 5px lightgrey;
     width: 200px;
@@ -185,4 +187,17 @@ a {
 .undo, .trash {
     color: #808080;
     
+}
+
+.conteiner {
+    display: flex;
+    align-items: center;
+
+}
+
+
+.time {
+    color: #808080;
+    margin-left: 34px;
+    font-size: 12px;
 }

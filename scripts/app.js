@@ -1,9 +1,8 @@
-const API_URL = 'http://localhost:3000/api/movies'
+const API_URL = 'http://localhost:5000/api/movies'
 
 
 window.addEventListener('load', function() {
    
-
     const inputPelicula = document.querySelector('#nuebo');
 
     document.querySelector('.button').addEventListener('click', function(event) {
@@ -31,6 +30,7 @@ const botonBorrar = document.querySelector('.delete');
 const inputPelicula = document.querySelector('#nuebo');
 const botonVista = document.querySelectorAll('.vista')
 
+
 //agregar peli 
 function agregarPeliSola(peli) {
     const nodoPeliculasPendientes = document.querySelector('.pending-movies');
@@ -56,16 +56,22 @@ function agregarPelicula (url, payload) {
     }
 
     fetch(url, config)
-    .then(respuesta => respuesta.text())
+    .then((response) => {
+        if (response.ok) {
+            return response.text();
+        } else {
+          alert('Something went wrong');
+        }
+    }) 
+
     .then (data => {
         console.log(data);
         obtenerListadoPeliculas(`${API_URL}`);
-        
     })
-    .catch(error => {
-        console.log(error);
-    }) //Me gustaría mostrar este error no en la consola pero en el front, pero no con una "alerta"
-    //sino en rojo en alguna parte de la pantalla.
+
+    .catch (error => {
+        console.error(error);
+    })
 } 
 
 // GET: traer películas 
@@ -170,10 +176,10 @@ function renderizarPelis(lista) {
             nodoPeliculasVistas.innerHTML += `<ul class="watched" data-id="${pelicula.id}">
             <div class="description">
             <div class="name">${pelicula.name}</div>
-            <div>
+            <div class="conteiner">
             <button class="undo"><i class="fas fa-undo-alt change"></i></button>
             <button class= "trash"><i class="far fa-trash-alt"></i></button>
-            <div>${formatDate(pelicula.updatedAt)}</div>
+            <div class= "time">${formatDate(pelicula.updatedAt)}</div>
             </div>
             </div> 
             </ul>`
