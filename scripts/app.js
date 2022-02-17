@@ -56,22 +56,17 @@ function agregarPelicula (url, payload) {
     }
 
     fetch(url, config)
-    .then((response) => {
-        if (response.ok) {
-            return response.text();
-        } else {
-          alert('Something went wrong');
-        }
-    }) 
-
-    .then (data => {
-        console.log(data);
-        obtenerListadoPeliculas(`${API_URL}`);
-    })
-
-    .catch (error => {
-        console.error(error);
-    })
+    .then (response => response.json())
+    .then (response => { if(response.status == 200) {
+        console.log(response);
+        obtenerListadoPeliculas(`${API_URL}`) 
+    } else {
+        showError(); 
+    } 
+        })     
+    .catch(error => console.log(error))
+    
+    //todo esto está mal pero no lo puedo arreglar.
 } 
 
 // GET: traer películas 
@@ -209,4 +204,12 @@ function formatDate(dateStr) {
 }
 
 
+// Mostrar error 
+//Esto es lo que quiero mostrar cuando se hace produce el error. El problema es que creo que no 
+//se está haciendo el catch error cuando ejecuto.
+function showError() {
+    document.querySelector('#error-container').classList.remove('hidden')
+    document.querySelector('#error-container').innerHTML = '<small>El campo ingresado no puede estar vacío o la película ya existe</small>'
+    
+}
 
