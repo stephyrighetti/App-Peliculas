@@ -157,7 +157,7 @@ a {
 #error-container {
     color: red;
     display: flex;
-    margin-left: 95px;
+    justify-content: center;
     margin-top: 12px;
 }
 
